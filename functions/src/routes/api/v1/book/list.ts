@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as express from 'express';
-import { check, validationResult } from 'express-validator/check';
+import { check, validationResult } from 'express-validator';
 
 const BOOK_COLLECTION = 'books';
 
