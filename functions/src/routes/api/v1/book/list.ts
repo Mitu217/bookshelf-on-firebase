@@ -19,12 +19,20 @@ export const action = async (req: express.Request, res: express.Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(422).send({ errors: errors.array() });
+        throw errors;
     }
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : LIMIT_DEFAULT;
     const page = req.query.page ? parseInt(req.query.page, 10) : PAGE_DEFAULT;
     const offset = limit * page;
 
-    const snapShot = await admin.firestore().collection(BOOK_COLLECTION).offset(offset).limit(limit).get()
+    const snapShot = await admin.firestore().collection(BOOK_COLLECTION)
+        .offset(offset)
+        .limit(limit)
+        .get()
+        .catch(error => {
+            res.status(500).send({ error: error });
+            throw error;
+        });
     const data = snapShot.docs.map(doc => {
         return doc.data();
     });
