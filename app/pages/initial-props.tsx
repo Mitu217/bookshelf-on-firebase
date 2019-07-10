@@ -2,11 +2,11 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import List from '../components/List'
-import { User } from '../interfaces'
-import { findAll } from '../utils/sample-api'
+import { Book } from '../interfaces'
+import { getBooks } from '../utils/api/book'
 
 type Props = {
-  items: User[]
+  items: Book[]
   pathname: string
 }
 
@@ -27,7 +27,7 @@ WithInitialProps.getInitialProps = async ({ pathname }) => {
   // Example for including initial props in a Next.js function compnent page.
   // Don't forget to include the respective types for any props passed into
   // the component.
-  const items: User[] = await findAll()
+  const items: Book[] = await getBooks()
 
   return { items, pathname }
 }

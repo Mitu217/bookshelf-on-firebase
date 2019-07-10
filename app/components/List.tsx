@@ -1,15 +1,15 @@
 import * as React from 'react'
 import ListItem from './ListItem'
-import { User } from '../interfaces'
+import { Book } from '../interfaces'
 
 type Props = {
-  items: User[]
+  items: Book[]
 }
 
 const List: React.FunctionComponent<Props> = ({ items }) => (
   <ul>
     {items.map(item => (
-      <li key={item.id}>
+      <li key={item.title}>
         <ListItem data={item} />
       </li>
     ))}
