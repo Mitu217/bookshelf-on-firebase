@@ -3,24 +3,26 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+  "functions": {
+    "source": "dist/functions",
+    "predeploy": [
+      "npm run lint-functions",
+      "npm run lint-app",
+      "npm run typecheck-app",
+      "npm run build-functions",
+      "npm run build-app",
+      "npm run copy-deps",
+      "npm run install-deps"
     ]
   },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ]
+  "hosting": {
+    "public": "dist/public",
+    "rewrites": [
+      {
+        "source": "**/**",
+        "function": "nextApp"
+      }
+    ],
+    "predeploy": "npm run build-public"
   }
 }
