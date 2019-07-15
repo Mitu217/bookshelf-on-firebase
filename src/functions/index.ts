@@ -1,10 +1,15 @@
+import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import next from 'next';
+import apiRouter from './routes/api';
+import appHandler from './routes/app';
 
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev, conf: { distDir: 'next' } });
-const handle = app.getRequestHandler();
+const REGION = 'asia-northeast1';
 
-export const nextApp = functions.https.onRequest((req, res) => {
-  return app.prepare().then(() => handle(req, res));
-});
+// setup firestore
+admin.initializeApp(functions.config().firebase);
+
+export const api = functions.region(REGION).https.onRequest(apiRouter);
+
+// region must be us-central1 for rewrites hosting.
+// https://firebase.google.com/docs/functions/locations#http_and_client_callable_functions
+export const app = functions.region('us-central1').https.onRequest(appHandler);
