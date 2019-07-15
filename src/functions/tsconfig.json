@@ -1,16 +1,25 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
-      "es2017",
+      "es2017"
     ],
     "module": "commonjs",
     "strict": true,
     "outDir": "../../dist/functions",
     "sourceMap": true,
     "target": "es2017",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "isolatedModules": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "removeComments": true
   },
-  "compileOnSave": true
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
