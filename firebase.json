@@ -20,7 +20,7 @@
     "rewrites": [
       {
         "source": "**/**",
-        "function": "nextApp"
+        "function": "app"
       }
     ],
     "predeploy": "npm run build-public"
