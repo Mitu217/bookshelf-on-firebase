@@ -71,6 +71,3 @@ node_modules/
 
 # built files directory
 dist/
-
-# credentials files directory
-credentials/
