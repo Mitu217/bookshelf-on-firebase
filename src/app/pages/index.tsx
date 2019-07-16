@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import React from 'react';
 import clientCredentials from '../credentials/client';
 
@@ -31,22 +31,8 @@ export default class Index extends React.Component<IProps, IState> {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-        return user
-          .getIdToken()
-          .then((token) => {
-            return fetch('/api/login', {
-              body: JSON.stringify({ token }),
-              credentials: 'same-origin',
-              headers: new Headers({ 'Content-Type': 'application/json' }),
-              method: 'POST',
-            });
-          });
       } else {
         this.setState({ user: null });
-        fetch('/api/logout', {
-          credentials: 'same-origin',
-          method: 'POST',
-        });
       }
     });
   }
